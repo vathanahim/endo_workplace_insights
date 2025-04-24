@@ -6,7 +6,7 @@ st.title("Endodontist Finder for Minty")
 
 with st.form("key='input_city_state'"):
     city = st.text_input("Enter city")
-    state = st.text_input("Enter state")
+    state = st.text_input("Enter state (abbreviation e.g. NC)")
     submit_button = st.form_submit_button("Submit")
 
 if submit_button:
