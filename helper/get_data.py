@@ -15,7 +15,7 @@ def fetch_endodontists_by_city_state(city, state):
         "city": city,
         "state": state,
     }
-
+    
     response = requests.get(base_url, params=params)
     data = response.json()
     if not data.get('results'):
@@ -104,7 +104,17 @@ def aggregate_location_data(df):
     return df
 
 def get_rent_data(zipcode_list:list):
-    df = pd.read_csv('https://raw.githubusercontent.com/vathanahim/endo_workplace_insights/refs/heads/main/data/rent_data.csv')
+    columns_to_use = ['zipcode', 'studio', 'one_bedroom', 'two_bedroom', 'three_bedroom']
+    column_dtypes = {
+    'zipcode': 'int',
+    'studio': 'float',
+    'one_bedroom': 'float',
+    'two_bedroom': 'float',
+    'three_bedroom': 'float'
+    }
+
+    df = pd.read_csv('https://raw.githubusercontent.com/vathanahim/endo_workplace_insights/refs/heads/main/data/rent_data.csv', usecols =columns_to_use, dtype=column_dtypes )
     df = df[df['zipcode'].isin(zipcode_list)]
+
     return df
 
