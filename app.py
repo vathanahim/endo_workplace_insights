@@ -44,7 +44,9 @@ if submit_button:
             tooltip=tooltip,
             map_style='mapbox://styles/mapbox/light-v9'
         ))
-        
+    zipcode_list = df_clean['zip_code'].unique().tolist()
+    rent_data = hp.get_rent_data(zipcode_list)
+    st.write(rent_data)
 
 
 # def main():

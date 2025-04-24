@@ -102,3 +102,9 @@ def aggregate_location_data(df):
             df.loc[df['full_address'] == address, 'latitude'] = None
             df.loc[df['full_address'] == address, 'longitude'] = None
     return df
+
+def get_rent_data(zipcode_list:list):
+    df = pd.read_csv('https://raw.githubusercontent.com/vathanahim/endo_workplace_insights/refs/heads/main/data/rent_data.csv')
+    df = df[df['zipcode'].isin(zipcode_list)]
+    return df
+
