@@ -14,6 +14,7 @@ def fetch_endodontists_by_city_state(city, state):
         "taxonomy_description": "Endodontic",
         "city": city,
         "state": state,
+        "limit": 1000
     }
     
     response = requests.get(base_url, params=params)
@@ -106,11 +107,11 @@ def aggregate_location_data(df):
 def get_rent_data(zipcode_list:list):
     columns_to_use = ['zipcode', 'studio', 'one_bedroom', 'two_bedroom', 'three_bedroom']
     column_dtypes = {
-    'zipcode': 'int',
-    'studio': 'float',
-    'one_bedroom': 'float',
-    'two_bedroom': 'float',
-    'three_bedroom': 'float'
+    'zipcode': 'string',
+    'studio': 'string',
+    'one_bedroom': 'string',
+    'two_bedroom': 'string',
+    'three_bedroom': 'string'
     }
 
     df = pd.read_csv('https://raw.githubusercontent.com/vathanahim/endo_workplace_insights/refs/heads/main/data/rent_data.csv', usecols =columns_to_use, dtype=column_dtypes )

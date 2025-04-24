@@ -17,7 +17,7 @@ if submit_button:
         if df is None or df.empty:
             st.warning(f"No endodontists found in {city.title()}, {state.upper()}")
         else:
-            st.success(f"Found {len(df)} endodontists in {city.title()}, {state.upper()}")
+            st.success(f"Found {len(df)+1} endodontists in {city.title()}, {state.upper()}")
             st.dataframe(df)
             # Clean and process the data
             df_clean = hp.aggregate_location_data(df)
@@ -58,8 +58,8 @@ if submit_button:
                 zipcode_list = df_clean['zip_code'].unique().tolist()
                 rent_data = hp.get_rent_data(zipcode_list)
                 if rent_data is not None and not rent_data.empty:
-                    st.write("Rent Data by Zip Code:")
-                    st.dataframe(rent_data)
+                    st.write("Average Rental Market Data by Zip Code:")
+                    st.dataframe(rent_data, hide_index=True)
                 else:
                     st.info("No rent data available for the selected area")
 
