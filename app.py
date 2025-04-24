@@ -5,8 +5,8 @@ import pydeck as pdk
 st.title("Endodontist Finder for Minty")
 
 with st.form("key='input_city_state'"):
-    city = st.text_input("Enter city")
-    state = st.text_input("Enter state (abbreviation e.g. NC)")
+    city = st.text_input("Enter city").strip()
+    state = st.text_input("Enter state (abbreviation e.g. NC)").strip()
     submit_button = st.form_submit_button("Submit")
 
 if submit_button:
