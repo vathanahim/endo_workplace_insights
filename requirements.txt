@@ -2,4 +2,3 @@ geopy
 pandas
 streamlit
 pydeck
-os
