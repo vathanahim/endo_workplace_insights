@@ -1,19 +1,24 @@
 import streamlit as st
 import helper as hp
 import pydeck as pdk
-
+import pandas as pd
 st.title("Endodontist Finder for Minty")
 
 with st.form("key='input_city_state'"):
-    city = st.text_input("Enter city")
-    state = st.text_input("Enter state")
+    city = st.text_input("Enter city").strip()
+    state = st.text_input("Enter state (abbreviation e.g. NC)").strip()
     submit_button = st.form_submit_button("Submit")
 
 if submit_button:
     if not city or not state:
         st.error("Please enter both city and state")
     else:
+        population = hp.get_population_data(city.lower(), state.lower())
         df = hp.fetch_endodontists_by_city_state(city.lower(), state.lower())
+        if population is None:
+            st.warning(f"No population data found for {city.title()}, {state.upper()}")
+        else:
+            st.subheader(f"Population of {city.title()}, {state.upper()}: {population}")
         if df is None or df.empty:
             st.warning(f"No endodontists found in {city.title()}, {state.upper()}")
         else:

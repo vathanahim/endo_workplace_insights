@@ -1,0 +1,4 @@
+geopy
+pandas
+streamlit
+pydeck

@@ -5,6 +5,7 @@ from geopy.extra.rate_limiter import RateLimiter
 import re
 from geopy.exc import GeocoderUnavailable
 import time
+import os
 
 def fetch_endodontists_by_city_state(city, state):
     base_url = "https://npiregistry.cms.hhs.gov/api/"
@@ -118,4 +119,16 @@ def get_rent_data(zipcode_list:list):
     df = df[df['zipcode'].isin(zipcode_list)]
 
     return df
+
+def get_population_data(city, state):
+    try:
+        df = pd.read_csv('data/uscities.csv.zip', compression='zip', usecols=['city', 'state_id', 'population'])
+        # Convert the relevant columns to lowercase
+        df['city'] = df['city'].str.lower()
+        df['state_id'] = df['state_id'].str.lower()
+        population = df[(df['city'] == city.lower()) & (df['state_id'] == state.lower())]['population'].values[0]
+        return population
+    except Exception as e:
+        print(f"Error getting population data: {str(e)}")
+        return None
 
